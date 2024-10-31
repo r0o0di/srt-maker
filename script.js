@@ -15,45 +15,47 @@ function handleVideoUpload(event) {
 }
 
 function addSubtitleEntry() {
-  const entry = document.createElement('div');
-  entry.classList.add('subtitle-entry');
-
-  const subtitleText = document.createElement('input');
-  subtitleText.type = 'text';
-  subtitleText.placeholder = 'Subtitle text...';
-
-  const startTimestamp = document.createElement('input');
-  startTimestamp.type = 'text';
-  startTimestamp.readOnly = true;
-  startTimestamp.placeholder = 'Start Time';
-  startTimestamp.id = "startTime";
-
-  const startBtn = document.createElement('button');
-  startBtn.textContent = 'Set Start';
-  startBtn.classList.add('timestamp-btn');
-  startBtn.onclick = () => setTimestamp(startTimestamp);
-
-  const endTimestamp = document.createElement('input');
-  endTimestamp.type = 'text';
-  endTimestamp.readOnly = true;
-  endTimestamp.placeholder = 'End Time';
-  endTimestamp.id = "endTime";
-
-  const endBtn = document.createElement('button');
-  endBtn.textContent = 'Set End';
-  endBtn.classList.add('timestamp-btn');
-  endBtn.onclick = () => setTimestamp(endTimestamp);
-
-  entry.appendChild(subtitleText);
-  entry.appendChild(startTimestamp);
-  entry.appendChild(startBtn);
-  entry.appendChild(endTimestamp);
-  entry.appendChild(endBtn);
-
-  document.getElementById('subtitleContainer').appendChild(entry);
-
-  subtitleLines.push({ subtitleText, startTimestamp, endTimestamp });
-}
+    const entry = document.createElement('div');
+    entry.classList.add('subtitle-entry');
+  
+    const subtitleText = document.createElement('input');
+    subtitleText.type = 'text';
+    subtitleText.placeholder = 'Subtitle text...';
+  
+    const startTimestamp = document.createElement('input');
+    startTimestamp.type = 'text';
+    startTimestamp.readOnly = true;
+    startTimestamp.placeholder = 'Start Time';
+  
+    const startBtn = document.createElement('button');
+    startBtn.textContent = 'Set Start';
+    startBtn.classList.add('timestamp-btn');
+    startBtn.onclick = () => setTimestamp(startTimestamp);
+  
+    const endTimestamp = document.createElement('input');
+    endTimestamp.type = 'text';
+    endTimestamp.readOnly = true;
+    endTimestamp.placeholder = 'End Time';
+  
+    const endBtn = document.createElement('button');
+    endBtn.textContent = 'Set End';
+    endBtn.classList.add('timestamp-btn');
+    endBtn.onclick = () => {
+      setTimestamp(endTimestamp);
+      addSubtitleEntry(); // Adds a new subtitle line when "Set End" is clicked
+    };
+  
+    entry.appendChild(subtitleText);
+    entry.appendChild(startTimestamp);
+    entry.appendChild(startBtn);
+    entry.appendChild(endTimestamp);
+    entry.appendChild(endBtn);
+  
+    document.getElementById('subtitleContainer').appendChild(entry);
+  
+    subtitleLines.push({ subtitleText, startTimestamp, endTimestamp });
+  }
+  
 
 function setTimestamp(inputField) {
   inputField.value = formatTimestamp(videoPlayer.currentTime);
