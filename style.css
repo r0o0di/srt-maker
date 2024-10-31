@@ -28,26 +28,35 @@ h1 {
     color: #333333;
 }
 
-/* Video player styling */
-#videoPlayerContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
-  
-  #videoPlayer {
+/* Video container */
+.video-container {
+    position: sticky;
     width: 100%;
-    outline: none; /* Removes dark overlay */
-  }
-  
-  #videoControls {
-    margin-top: 10px; /* Move controls below the video */
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
+    top: 0%;
+}
+
+#videoPlayer {
+    /* height: 350px; */
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    /* Ensures the video stays above other elements if necessary */
+}
+
+/* Hide the dark overlay and adjust controls */
+#videoPlayer::-webkit-media-controls-panel {
+    background-color: transparent;
+}
+
+#videoPlayer::-webkit-media-controls {
+    margin-top: 10px;
+    /* Adjusts the position of the controls outside the video */
+}
+
+#videoPlayer:fullscreen::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Optional: slight background in fullscreen */
+}
 
 #videoUpload,
 #addSubtitleBtn,
