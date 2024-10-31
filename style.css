@@ -28,6 +28,16 @@
     color: #333333;
   }
   
+  #videoPlayer {
+    /* height: 350px; */
+    height: 100%;
+    width: 100%;
+    margin: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Ensures the video stays above other elements if necessary */
+    }
+
   #videoUpload,
   #addSubtitleBtn,
   #downloadSrtBtn,
@@ -41,10 +51,15 @@
   
   .subtitle-entry {
     display: flex;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
   }
   
+  #startTime, #endTime {
+    /* display: none; */
+  }
+
   .subtitle-entry input[type="text"] {
     flex: 1;
     padding: 5px;

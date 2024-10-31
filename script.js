@@ -26,6 +26,7 @@ function addSubtitleEntry() {
   startTimestamp.type = 'text';
   startTimestamp.readOnly = true;
   startTimestamp.placeholder = 'Start Time';
+  startTimestamp.id = "startTime";
 
   const startBtn = document.createElement('button');
   startBtn.textContent = 'Set Start';
@@ -36,6 +37,7 @@ function addSubtitleEntry() {
   endTimestamp.type = 'text';
   endTimestamp.readOnly = true;
   endTimestamp.placeholder = 'End Time';
+  endTimestamp.id = "endTime";
 
   const endBtn = document.createElement('button');
   endBtn.textContent = 'Set End';
