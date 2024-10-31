@@ -2,77 +2,102 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     background-color: #f2f2f2;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 600px;
     width: 100%;
     background-color: #ffffff;
     padding: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-  }
-  
-  h1 {
+}
+
+h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333333;
-  }
-  
-  #videoPlayer {
+}
+
+/* Video container */
+.video-container {
+    position: sticky;
+    width: 100%;
+    top: 0%;
+}
+
+#videoPlayer {
     /* height: 350px; */
     height: 100%;
     width: 100%;
-    margin: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100; /* Ensures the video stays above other elements if necessary */
-    }
+    z-index: 100;
+    /* Ensures the video stays above other elements if necessary */
+}
 
-  #videoUpload,
-  #addSubtitleBtn,
-  #downloadSrtBtn,
-  #fileName {
+/* Hide the dark overlay and adjust controls */
+#videoPlayer::-webkit-media-controls-panel {
+    background-color: transparent;
+}
+
+#videoPlayer::-webkit-media-controls {
+    margin-top: 10px;
+    /* Adjusts the position of the controls outside the video */
+}
+
+#videoPlayer:fullscreen::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Optional: slight background in fullscreen */
+}
+
+#videoUpload,
+#addSubtitleBtn,
+#downloadSrtBtn,
+#fileName {
     display: block;
     width: 100%;
     margin: 10px 0;
     padding: 10px;
     font-size: 16px;
-  }
-  
-  .subtitle-entry {
+}
+
+
+.subtitle-entry {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 10px;
     margin-bottom: 10px;
-  }
-  
-  #startTime, #endTime {
-    padding: 0;
 }
 
-.timestamp-btn {
-    width: 100%;
-    padding: 5px;
+.subtitle-entry .timestamp-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-  .subtitle-entry input[type="text"] {
-    flex: 1;
+.timestamp-row input,
+.timestamp-row button {
+    width: 35%;
+}
+
+.timestamp-row button {
+    width: 65%;
+}
+
+.subtitle-entry input[type="text"] {
     padding: 5px;
     font-size: 14px;
-    margin-right: 10px;
-  }
-  
-  .subtitle-entry .timestamp-btn {
-    margin-left: 5px;
-  }
-  
+}
+
+.subtitle-entry .timestamp-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+}
