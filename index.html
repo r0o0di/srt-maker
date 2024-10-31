@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SRT Subtitle Creator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>SRT Subtitle Creator</h1>
+    <input type="file" id="videoUpload" accept="video/*">
+    <video id="videoPlayer" controls></video>
+
+    <div id="subtitleContainer"></div>
+    <button id="addSubtitleBtn">Add Subtitle</button>
+
+    <input type="text" id="fileName" placeholder="Enter SRT file name">
+    <button id="downloadSrtBtn">Download SRT</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
