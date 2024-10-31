@@ -11,7 +11,12 @@
     <h1>SRT Subtitle Creator</h1>
     <input type="file" id="videoUpload" accept="video/*">
     <div class="video-container">
-        <video id="videoPlayer" controls></video>
+        <video id="videoPlayer" ></video>
+        <div class="video-controls">
+            <button id="playPauseBtn">Play</button>
+            <button id="rewindBtn">⏪ Rewind 2s</button>
+            <button id="fastForwardBtn">⏩ Forward 2s</button>
+          </div>
       </div>
       
     <div id="subtitleContainer"></div>

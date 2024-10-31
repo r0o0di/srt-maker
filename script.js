@@ -2,7 +2,6 @@ document.getElementById('videoUpload').addEventListener('change', handleVideoUpl
 document.getElementById('addSubtitleBtn').addEventListener('click', addSubtitleEntry);
 document.getElementById('downloadSrtBtn').addEventListener('click', downloadSrtFile);
 
-const videoPlayer = document.getElementById('videoPlayer');
 let subtitleLines = [];
 let entryCounter = 1;
 
@@ -13,34 +12,52 @@ function handleVideoUpload(event) {
         videoPlayer.load();
     }
 }
+const videoPlayer = document.getElementById('videoPlayer');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const rewindBtn = document.getElementById('rewindBtn');
+const fastForwardBtn = document.getElementById('fastForwardBtn');
 
-// Speed up the video when holding the screen
-videoPlayer.addEventListener('touchstart', handleSpeedBoost);
-videoPlayer.addEventListener('touchend', resetSpeed);
+// Remove default video controls
+videoPlayer.controls = false;
 
-// Double-click to go forward or back
-videoPlayer.addEventListener('dblclick', handleDoubleClick);
+// Toggle play/pause
+playPauseBtn.addEventListener('click', () => {
+  if (videoPlayer.paused) {
+    videoPlayer.play();
+    playPauseBtn.textContent = 'Pause';
+  } else {
+    videoPlayer.pause();
+    playPauseBtn.textContent = 'Play';
+  }
+});
 
-function handleSpeedBoost() {
-    videoPlayer.playbackRate = 4.0; // Increase speed to 4x
-}
+// Rewind 2 seconds
+rewindBtn.addEventListener('click', () => {
+  videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 2);
+});
 
-function resetSpeed() {
-    videoPlayer.playbackRate = 1.0; // Reset speed to normal
-}
+// Fast-forward 2 seconds
+fastForwardBtn.addEventListener('click', () => {
+  videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 2);
+});
 
-function handleDoubleClick(event) {
-    const videoWidth = videoPlayer.offsetWidth;
-    const clickPosition = event.offsetX;
+// Speed up playback when holding the video
+videoPlayer.addEventListener('mousedown', () => {
+  videoPlayer.playbackRate = 4.0;
+});
 
-    if (clickPosition < videoWidth / 2) {
-        // Left side double-click, rewind 2 seconds
-        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 2);
-    } else {
-        // Right side double-click, fast forward 2 seconds
-        videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 2);
-    }
-}
+videoPlayer.addEventListener('mouseup', () => {
+  videoPlayer.playbackRate = 1.0;
+});
+
+// Handle touch events for mobile
+videoPlayer.addEventListener('touchstart', () => {
+  videoPlayer.playbackRate = 4.0;
+});
+
+videoPlayer.addEventListener('touchend', () => {
+  videoPlayer.playbackRate = 1.0;
+});
 
 
 function addSubtitleEntry() {
