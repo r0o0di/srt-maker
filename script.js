@@ -1,18 +1,51 @@
-document.getElementById('videoUpload').addEventListener('change', handleVideoUpload);
 document.getElementById('addSubtitleBtn').addEventListener('click', addSubtitleEntry);
 document.getElementById('downloadSrtBtn').addEventListener('click', downloadSrtFile);
 
-const videoPlayer = document.getElementById('videoPlayer');
 let subtitleLines = [];
 let entryCounter = 1;
+const videoPlayer = document.getElementById('videoPlayer');
 
-function handleVideoUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        videoPlayer.src = URL.createObjectURL(file);
-        videoPlayer.load();
-    }
-}
+// Speed up video on hold (desktop and mobile)
+let speedUpInterval;
+
+videoPlayer.addEventListener('mousedown', () => {
+  videoPlayer.playbackRate = 4; // Speed up
+});
+
+videoPlayer.addEventListener('mouseup', () => {
+  videoPlayer.playbackRate = 1; // Reset speed
+});
+
+videoPlayer.addEventListener('touchstart', () => {
+  videoPlayer.playbackRate = 4;
+});
+
+videoPlayer.addEventListener('touchend', () => {
+  videoPlayer.playbackRate = 1;
+});
+
+// Double-click to skip 2 seconds
+videoPlayer.addEventListener('dblclick', (e) => {
+  const videoWidth = videoPlayer.offsetWidth;
+  const clickPosition = e.offsetX;
+
+  if (clickPosition < videoWidth / 2) {
+    // Left side double-click, go back 2 seconds
+    videoPlayer.currentTime = Math.max(videoPlayer.currentTime - 2, 0);
+  } else {
+    // Right side double-click, go forward 2 seconds
+    videoPlayer.currentTime = Math.min(videoPlayer.currentTime + 2, videoPlayer.duration);
+  }
+});
+
+// Handle video upload
+document.getElementById('videoUpload').addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    videoPlayer.src = URL.createObjectURL(file);
+    videoPlayer.load();
+  }
+});
 
 // Speed up the video when holding the screen
 videoPlayer.addEventListener('touchstart', handleSpeedBoost);
