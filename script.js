@@ -16,6 +16,8 @@ const videoPlayer = document.getElementById('videoPlayer');
 const playPauseBtn = document.getElementById('playPauseBtn');
 const rewindBtn = document.getElementById('rewindBtn');
 const fastForwardBtn = document.getElementById('fastForwardBtn');
+const seekBar = document.getElementById('seekBar');
+
 
 // Remove default video controls
 videoPlayer.controls = false;
@@ -31,32 +33,27 @@ playPauseBtn.addEventListener('click', () => {
   }
 });
 
-// Rewind 2 seconds
-rewindBtn.addEventListener('click', () => {
-  videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 2);
+// Rewind and forward
+rewindBtn.addEventListener('click', () => videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 2));
+fastForwardBtn.addEventListener('click', () => videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 2));
+
+
+// Speed up on hold
+videoPlayer.addEventListener('mousedown', () => videoPlayer.playbackRate = 4.0);
+videoPlayer.addEventListener('mouseup', () => videoPlayer.playbackRate = 1.0);
+videoPlayer.addEventListener('touchstart', () => videoPlayer.playbackRate = 4.0);
+videoPlayer.addEventListener('touchend', () => videoPlayer.playbackRate = 1.0);
+
+// Update seek bar as video plays
+videoPlayer.addEventListener('timeupdate', () => {
+  const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+  seekBar.value = progress || 0;
 });
 
-// Fast-forward 2 seconds
-fastForwardBtn.addEventListener('click', () => {
-  videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 2);
-});
-
-// Speed up playback when holding the video
-videoPlayer.addEventListener('mousedown', () => {
-  videoPlayer.playbackRate = 4.0;
-});
-
-videoPlayer.addEventListener('mouseup', () => {
-  videoPlayer.playbackRate = 1.0;
-});
-
-// Handle touch events for mobile
-videoPlayer.addEventListener('touchstart', () => {
-  videoPlayer.playbackRate = 4.0;
-});
-
-videoPlayer.addEventListener('touchend', () => {
-  videoPlayer.playbackRate = 1.0;
+// Seek when the user interacts with the seek bar
+seekBar.addEventListener('input', () => {
+  const seekTo = (seekBar.value / 100) * videoPlayer.duration;
+  videoPlayer.currentTime = seekTo;
 });
 
 
