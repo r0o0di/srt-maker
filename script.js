@@ -33,6 +33,16 @@ playPauseBtn.addEventListener('click', () => {
   }
 });
 
+videoPlayer.addEventListener('click', () => {
+  if (videoPlayer.paused) {
+    videoPlayer.play();
+    playPauseBtn.textContent = 'Pause';
+  } else {
+    videoPlayer.pause();
+    playPauseBtn.textContent = 'Play';
+  }
+});
+
 // Rewind and forward
 rewindBtn.addEventListener('click', () => videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 2));
 fastForwardBtn.addEventListener('click', () => videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 2));
